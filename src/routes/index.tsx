@@ -15,7 +15,6 @@ const AppLayout = lazy(() => import("@layouts/App"));
 const BaseRoutes: React.FC = () => {
 	return (
 		<Suspense fallback={<NProgressSuspense />}>
-			<BrowserRouter>
 				<Routes>
 					<Route
 						path={"app/*"}
@@ -50,7 +49,6 @@ const BaseRoutes: React.FC = () => {
 						))}
 					</Route>
 				</Routes>
-			</BrowserRouter>
 		</Suspense>
 	);
 };
