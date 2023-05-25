@@ -18,10 +18,7 @@ const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: "Sarala, sans-serif",
-    button: {
-      textTransform: "unset",
-    },
+    fontFamily: "Poppins, sans-serif",
   },
 });
 

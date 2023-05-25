@@ -167,7 +167,7 @@ const Login: React.FC = () => {
                   <Iconify icon={"material-symbols:arrow-back-ios-rounded"} className="text-black"/>
                   <Typography
                     variant="caption"
-                    className="font-semibold text-black"
+                    className="font-md text-black"
                   >
                     Create an account
                   </Typography>
