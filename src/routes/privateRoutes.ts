@@ -7,6 +7,10 @@ export const privateRoutes = [
     Component: lazy(() => import("@pages/Dashboard")),
   },
   {
+    path: PRIVATE_ROUTES.HOME,
+    Component: lazy(() => import("@pages/Home")),
+  },
+  {
     path: PRIVATE_ROUTES.MODS,
     Component: lazy(() => import("@pages/Mods")),
   },

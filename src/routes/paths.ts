@@ -7,4 +7,5 @@ export const PRIVATE_ROUTES = {
   DASHBOARD: "",
   NOTFOUND: "*",
   MODS: "mods/*",
+  HOME: "home/*",
 };
