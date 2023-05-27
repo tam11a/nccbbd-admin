@@ -12,10 +12,15 @@ export const DrawerData = (logout?: () => void): IDrawerData[] => [
         to: "/app",
       },
       {
-        name: "About",
-        icon: <Icon icon="mdi:about-circle-outline" />,
-        to: "/app/about",
+        name: "Home",
+        icon: <Icon icon="clarity:home-line" />,
+        to: "/app/home",
       },
+      // {
+      //   name: "About",
+      //   icon: <Icon icon="mdi:about-circle-outline" />,
+      //   to: "/app/about",
+      // },
       {
         name: "Executive",
         icon: <Icon icon="clarity:employee-group-line" />,

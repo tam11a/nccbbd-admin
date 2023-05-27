@@ -50,113 +50,112 @@ const Login: React.FC = () => {
       className="min-h-screen flex flex-col items-center justify-between relative py-2 "
     >
       <div />
-        <div className="flex flex-col items-center">
-          <form onSubmit={handleSubmit(onValid)}>
-            <Paper
-              elevation={0}
-              sx={{
-                p: 2,
-                width: "95vw",
-                maxWidth: "350px",
-                "& > *": { my: 0.5 },
-              }}
-              className="shadow shadow-slate-400"
-            >
-              <Typography>Email</Typography>
+      <div className="flex flex-col items-center">
+        <form onSubmit={handleSubmit(onValid)}>
+          <Paper
+            elevation={0}
+            sx={{
+              p: 2,
+              width: "95vw",
+              maxWidth: "350px",
+              "& > *": { my: 0.5 },
+            }}
+            className="shadow shadow-slate-400"
+          >
+            <Typography>Email</Typography>
 
-              <Controller
-                control={control}
-                name={"email"}
-                rules={{ required: true }}
-                render={({
-                  field: { onChange, onBlur, value },
-                  fieldState: { error },
-                }) => (
-                  <Input
+            <Controller
+              control={control}
+              name={"email"}
+              rules={{ required: true }}
+              render={({
+                field: { onChange, onBlur, value },
+                fieldState: { error },
+              }) => (
+                <Input
+                  prefix={
+                    <Icon
+                      icon="material-symbols:alternate-email-rounded"
+                      color="#999"
+                      className="mr-1 text-xl"
+                    />
+                  }
+                  placeholder={"Email"}
+                  size={"large"}
+                  onChange={onChange}
+                  onBlur={onBlur}
+                  value={value}
+                  status={error ? "error" : ""}
+                  suffix={<ErrorSuffix error={error} />}
+                />
+              )}
+            />
+
+            <Controller
+              control={control}
+              name={"password"}
+              rules={{ required: true }}
+              render={({
+                field: { onChange, onBlur, value },
+                fieldState: { error },
+              }) => (
+                <>
+                  <Typography className="flex flex-row items-center gap-1">
+                    Password
+                    <ErrorSuffix error={error} size="small" />
+                  </Typography>
+                  <Input.Password
                     prefix={
                       <Icon
-                        icon="ph:phone"
+                        icon="ri:lock-password-line"
                         color="#999"
                         className="mr-1 text-xl"
                       />
                     }
-                    placeholder={"Email"}
-                    size={"large"}
+                    placeholder={"Password"}
+                    size="large"
                     onChange={onChange}
                     onBlur={onBlur}
                     value={value}
                     status={error ? "error" : ""}
-                    suffix={<ErrorSuffix error={error} />}
+                    // suffix={}
                   />
-                )}
-              />
+                </>
+              )}
+            />
 
+            <Stack
+              direction={"row"}
+              justifyContent={"space-between"}
+              alignItems={"center"}
+              className={"py-1 mb-2"}
+            >
               <Controller
                 control={control}
-                name={"password"}
-                rules={{ required: true }}
-                render={({
-                  field: { onChange, onBlur, value },
-                  fieldState: { error },
-                }) => (
-                  <>
-                    <Typography className="flex flex-row items-center gap-1">
-                      Password
-                      <ErrorSuffix error={error} size="small" />
-                    </Typography>
-                    <Input.Password
-                      prefix={
-                        <Icon
-                          icon="ri:lock-password-line"
-                          color="#999"
-                          className="mr-1 text-xl"
-                        />
-                      }
-                      placeholder={"Password"}
-                      size="large"
-                      onChange={onChange}
-                      onBlur={onBlur}
-                      value={value}
-                      status={error ? "error" : ""}
-                      // suffix={}
-                    />
-                  </>
+                name={"remember"}
+                render={({ field: { onChange, value } }) => (
+                  <Checkbox onChange={onChange} checked={value}>
+                    Remember me
+                  </Checkbox>
                 )}
               />
 
-              <Stack
-                direction={"row"}
-                justifyContent={"space-between"}
-                alignItems={"center"}
-                className={"py-1 mb-2"}
-              >
-                <Controller
-                  control={control}
-                  name={"remember"}
-                  render={({ field: { onChange, value } }) => (
-                    <Checkbox onChange={onChange} checked={value}>
-                      Remember me
-                    </Checkbox>
-                  )}
-                />
-
-                <Link to={"/recover"}>
-                  <Typography variant="caption">Forgot Password?</Typography>
-                </Link>
-              </Stack>
-              <Button
-                variant="contained"
-                fullWidth
-                size="large"
-                type={"submit"}
-                disabled={isLoginLoading}
-              >
-                Log In
-              </Button>
-            </Paper>
-          </form>
-          
-        </div>
+              <Link to={"/recover"}>
+                <Typography variant="caption">Forgot Password?</Typography>
+              </Link>
+            </Stack>
+            <Button
+              variant="contained"
+              fullWidth
+              size="large"
+              type={"submit"}
+              disabled={isLoginLoading}
+            >
+              Log In
+            </Button>
+          </Paper>
+        </form>
+      </div>
       <Stack className="flex flex-col items-center">
         <Stack className="flex flex-row items-center gap-1 ">
           <Typography component={Link} to={"/privacy"} variant="caption">

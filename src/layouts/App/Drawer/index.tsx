@@ -24,7 +24,6 @@ import useAuth from "@/hooks/useAuth";
 import useUser from "@/hooks/useUser";
 import Iconify from "@components/iconify";
 import { Typography } from "antd";
-import { menuData } from "./menu";
 
 const AppDrawer: React.FC<{ open: boolean; toggleDrawer: () => void }> = ({
   open,
