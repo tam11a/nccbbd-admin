@@ -36,11 +36,11 @@ export const DrawerData = (logout?: () => void): IDrawerData[] => [
   {
     title: "Personal",
     sublist: [
-      // {
-      //   name: "Profile",
-      //   icon: <Icon icon="material-symbols:person-rounded" />,
-      //   to: "/app/settings",
-      // },
+      {
+        name: "Moderators",
+        icon: <Icon icon="solar:shield-user-linear" />,
+        to: "/app/mods",
+      },
       {
         name: "Settings",
         icon: <Icon icon="clarity:cog-line" />,

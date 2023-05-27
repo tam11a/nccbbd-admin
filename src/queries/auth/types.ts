@@ -13,11 +13,11 @@ export type IUpdateUser = {
 	isActive: boolean;
 };
 
-//Sigup Type
+// Registration type
 export type ISignup = {
+	username: string;
 	firstName: string;
 	lastName: string;
-	userName: string;
 	email: string;
 	password: string;
 };
