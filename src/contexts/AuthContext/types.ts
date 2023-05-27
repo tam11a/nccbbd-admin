@@ -12,13 +12,15 @@ export type IUser = {
 };
 
 export type IAuthContext = {
-	isLoggedIn: boolean;
-	token: IToken;
-	setToken: (token: IToken, remember: boolean | false) => void;
-	user: IUser;
-	isLoading: boolean | false;
-	login: (email: string, password: string, remember: boolean | false) => void;
-	isLoginLoading: boolean;
-	logout: () => void;
-	isLogoutLoading?: boolean;
+  isLoggedIn: boolean;
+  token: IToken;
+  setToken: (token: IToken, remember: boolean | false) => void;
+  user: IUser;
+  isLoading: boolean | false;
+  signup: (userName: string, firstName: string, lastName: string, email: string, password: string) => void;
+  isSignupLoading: boolean;
+  login: (email: string, password: string, remember: boolean | false) => void;
+  isLoginLoading: boolean;
+  logout: () => void;
+  isLogoutLoading?: boolean;
 };

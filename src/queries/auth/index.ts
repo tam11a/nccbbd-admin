@@ -7,7 +7,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 // Types
 import {
   ILogin,
-  //  ISignup,
+   ISignup,
   IUpdateUser,
 } from "./types";
 import { IUserId } from "@/types";
@@ -18,6 +18,14 @@ const login = (data: ILogin) => {
 };
 export const useLogin = () => {
   return useMutation(login);
+};
+
+// Signup function with instance
+const signup = (data: ISignup) => {
+  return instance.post("/auth/register", { ...data });
+};
+export const useSignup = () => {
+  return useMutation(signup);
 };
 
 //Logout function with instance
