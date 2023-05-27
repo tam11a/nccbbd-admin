@@ -155,26 +155,7 @@ const Login: React.FC = () => {
               </Button>
             </Paper>
           </form>
-          <Stack className="flex flex-col items-center my-5">
-            <Stack className="flex flex-row items-center gap-1">
-              <Link to="/register">
-                <IconButton
-                  sx={{
-                    color: "primary.contrastText",
-                    fontSize: "12px",
-                  }}
-                >
-                  <Iconify icon={"material-symbols:arrow-back-ios-rounded"} className="text-black"/>
-                  <Typography
-                    variant="caption"
-                    className="font-md text-black"
-                  >
-                    Create an account
-                  </Typography>
-                </IconButton>
-              </Link>
-            </Stack>
-          </Stack>
+          
         </div>
       <Stack className="flex flex-col items-center">
         <Stack className="flex flex-row items-center gap-1 ">

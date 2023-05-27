@@ -7,30 +7,23 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 // Types
 import {
   ILogin,
-   ISignup,
+  //  ISignup,
   IUpdateUser,
 } from "./types";
 import { IUserId } from "@/types";
 
 // Login function with instance
 const login = (data: ILogin) => {
-  return instance.post("/auth/login", { ...data });
+  return instance.post("/v1/admin/login", { ...data });
 };
 export const useLogin = () => {
   return useMutation(login);
 };
 
-// Signup function with instance
-const signup = (data: ISignup) => {
-  return instance.post("/auth/register", { ...data });
-};
-export const useSignup = () => {
-  return useMutation(signup);
-};
 
 //Logout function with instance
 const logout = () => {
-  return instance.put("/auth/logout");
+  return instance.put("/v1/admin/logout");
 };
 export const useLogout = () => {
   return useMutation(logout);
@@ -39,7 +32,7 @@ export const useLogout = () => {
 // Validation function with instance
 const getValidateUser = () => {
   updateInstanceAuthorization();
-  return instance.get("/auth/validate");
+  return instance.get("/v1/admin/validate");
 };
 
 export const useGetValidation = (token: string | null) => {
@@ -61,7 +54,7 @@ const updateUserInfo = ({
   userId: IUserId;
   data: IUpdateUser | any;
 }) => {
-  return instance.patch(`/auth/update`, {
+  return instance.patch(`/v1/admin/update-profile`, {
     ...data,
   });
 };
@@ -75,30 +68,30 @@ export const useUpdateUserInfo = () => {
   });
 };
 
-const updatePassword = (data: {
-  phone?: string;
-  currentPassword?: string;
-  password?: string;
-  token: string | null;
-}) => {
-  return instance.put(`/update-password`, {
-    ...data,
-  });
-};
+// const updatePassword = (data: {
+//   phone?: string;
+//   currentPassword?: string;
+//   password?: string;
+//   token: string | null;
+// }) => {
+//   return instance.put(`/update-password`, {
+//     ...data,
+//   });
+// };
 
-export const useUpdatePassword = () => useMutation(updatePassword);
+// export const useUpdatePassword = () => useMutation(updatePassword);
 
-const sendOTP = (email: string) =>
-  instance.put(`auth/forgot-password`, {
-    email,
-  });
+// const sendOTP = (email: string) =>
+//   instance.put(`auth/forgot-password`, {
+//     email,
+//   });
 
-export const useSendOTP = () => useMutation(sendOTP);
+// export const useSendOTP = () => useMutation(sendOTP);
 
-const resetPassword = (data: {
-  token: string;
-  otp: string;
-  password: string;
-}) => instance.put(`auth/reset-password`, { ...data });
+// const resetPassword = (data: {
+//   token: string;
+//   otp: string;
+//   password: string;
+// }) => instance.put(`auth/reset-password`, { ...data });
 
-export const useResetPassword = () => useMutation(resetPassword);
+// export const useResetPassword = () => useMutation(resetPassword);

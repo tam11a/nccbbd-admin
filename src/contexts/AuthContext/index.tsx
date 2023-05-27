@@ -1,7 +1,7 @@
 import React from "react";
 import { IAuthContext, IToken, IUser } from "./types";
 import { message } from "@components/antd/message";
-import { useLogin, useGetValidation, useSignup } from "@/queries/auth";
+import { useLogin, useGetValidation } from "@/queries/auth";
 import handleResponse from "@/utilities/handleResponse";
 import { updateInstanceAuthorization } from "@/services";
 import useAreYouSure from "@/hooks/useAreYouSure";
@@ -20,8 +20,6 @@ const defaultValues: IAuthContext = {
     createdAt: null,
   },
   isLoading: false,
-  signup: () => {},
-  isSignupLoading: false,
   login: () => {},
   isLoginLoading: false,
   logout: () => {},
@@ -42,8 +40,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const [user, setUser] = React.useState<IUser>(defaultValues.user);
 
   const { mutateAsync: mutateLogin, isLoading: isLoginLoading } = useLogin();
-
-  const { mutateAsync: mutateSignup, isLoading: isSignupLoading } = useSignup();
 
   const {
     data: validationData,
@@ -86,42 +82,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     setToken(tkn);
   };
 
-  // signup
-  const signup = async (
-    userName: string,
-    firstName: string,
-    lastName: string,
-    email: string,
-    password: string
-  ) => {
-    console.log(userName,firstName, lastName, email, password);
-    messageApi.open({
-      type: "loading",
-      content: "Signing up..",
-      duration: 0,
-    });
-    const res = await handleResponse(() =>
-      mutateSignup({
-        userName,
-        firstName,
-        lastName,
-        email,
-        password,
-      })
-    );
-    messageApi.destroy();
-    if (
-      res.status &&
-      res.data?.isVerified !== false &&
-      res.data?.isActive !== false &&
-      res.data?.isValid !== false
-    ) {
-      updateInstanceAuthorization();
-      messageApi.success("Welcome!!");
-    } else {
-      messageApi.error(res.message || "Something went wrong!");
-    }
-  };
 
   //login
   const login = async (
@@ -188,8 +148,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         setToken: handleToken,
         user,
         isLoading: isValidationLoading,
-        signup,
-        isSignupLoading,
         login,
         isLoginLoading,
         logout: async () =>

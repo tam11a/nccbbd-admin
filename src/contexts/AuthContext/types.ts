@@ -17,8 +17,6 @@ export type IAuthContext = {
   setToken: (token: IToken, remember: boolean | false) => void;
   user: IUser;
   isLoading: boolean | false;
-  signup: (userName: string, firstName: string, lastName: string, email: string, password: string) => void;
-  isSignupLoading: boolean;
   login: (email: string, password: string, remember: boolean | false) => void;
   isLoginLoading: boolean;
   logout: () => void;
