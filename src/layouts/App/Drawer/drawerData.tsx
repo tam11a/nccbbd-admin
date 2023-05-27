@@ -10,42 +10,37 @@ export const DrawerData = (logout?: () => void): IDrawerData[] => [
         name: "Dashboard",
         icon: <Icon icon="mdi-light:view-dashboard" />,
         to: "/app",
-      }
-    ],
-  },
-  {
-    title: "Informations",
-    sublist: [
-      {
-        name: "Customers",
-        icon: <Icon icon="fluent:people-20-regular" />,
-        to: "/app/customer",
       },
-    ],
-  },
-  // {
-  //   title: "Reports",
-  //   sublist: [
-  //     {
-  //       name: "Sales",
-  //       icon: <Icon icon="carbon:report-data" />,
-  //       to: "/app/sales",
-  //     },
-  //   ],
-  // },
-  {
-    title: "Additional",
-    sublist: [
       {
-        name: "Executive body",
+        name: "About",
+        icon: <Icon icon="mdi:about-circle-outline" />,
+        to: "/app/about",
+      },
+      {
+        name: "Executive",
         icon: <Icon icon="clarity:employee-group-line" />,
-        to: "/app/employees",
+        to: "/app/executive",
+      },
+      {
+        name: "Publications",
+        icon: <Icon icon="carbon:catalog-publish" />,
+        to: "/app/publications",
+      },
+      {
+        name: "Gallery",
+        icon: <Icon icon="solar:gallery-broken" />,
+        to: "/app/gallery",
       },
     ],
   },
   {
     title: "Personal",
     sublist: [
+      // {
+      //   name: "Profile",
+      //   icon: <Icon icon="material-symbols:person-rounded" />,
+      //   to: "/app/settings",
+      // },
       {
         name: "Settings",
         icon: <Icon icon="clarity:cog-line" />,

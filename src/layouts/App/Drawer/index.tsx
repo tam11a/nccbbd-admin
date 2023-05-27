@@ -24,6 +24,7 @@ import useAuth from "@/hooks/useAuth";
 import useUser from "@/hooks/useUser";
 import Iconify from "@components/iconify";
 import { Typography } from "antd";
+import { menuData } from "./menu";
 
 const AppDrawer: React.FC<{ open: boolean; toggleDrawer: () => void }> = ({
   open,
@@ -56,7 +57,7 @@ const AppDrawer: React.FC<{ open: boolean; toggleDrawer: () => void }> = ({
               }}
             >
               <Typography className="text-xl font-bold">NCCBD</Typography>
-              
+
               <IconButton onClick={toggleDrawer}>
                 {open ? <RiMenuFoldLine /> : <RiMenuUnfoldLine />}
               </IconButton>
@@ -140,67 +141,58 @@ const AppDrawer: React.FC<{ open: boolean; toggleDrawer: () => void }> = ({
             </List>
           ))}
         </Box>
-        {/* <DrawerFooter
+        <DrawerFooter
           sx={{
             position: "absolute",
             width: "100%",
             bottom: 0,
           }}
         >
-          {open ? (
-            <Paper
-              elevation={0}
+          <Paper
+            elevation={0}
+            sx={{
+              bgcolor: "#F6F7F8",
+              width: "100%",
+              p: 1,
+              py: 0.2,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              columnGap: 1,
+            }}
+          >
+            <Avatar
+              variant={"rounded"}
               sx={{
-                bgcolor: "#F6F7F8",
-                width: "100%",
-                p: 1,
-                py: 0.2,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                columnGap: 1,
+                bgcolor: "background.default",
+                color: "primary.main",
               }}
+              // className="border-solid border-2 border-slate-300 mr-2"
             >
-              <Avatar
-                variant={"rounded"}
-                sx={{
-                  bgcolor: "background.default",
-                  color: "primary.main",
-                }}
-                // className="border-solid border-2 border-slate-300 mr-2"
-              >
-                <Iconify icon={"material-symbols:person-rounded"} />
-              </Avatar>
-              <ListItemText
-                primary={`${user?.firstName} ${user?.lastName}`}
-                // secondary={`${user?.role?.name}`}
-                primaryTypographyProps={{
-                  variant: "subtitle2",
-                  sx: {
-                    width: "165px",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                  },
-                }}
-                secondaryTypographyProps={{
-                  variant: "caption",
-                  sx: {
-                    width: "165px",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                  },
-                }}
-              />
-              <IconButton onClick={toggleDrawer}>
-                {open ? <RiMenuFoldLine /> : <RiMenuUnfoldLine />}
-              </IconButton>
-            </Paper>
-          ) : (
-            <IconButton onClick={toggleDrawer}>
-              {open ? <RiMenuFoldLine /> : <RiMenuUnfoldLine />}
-            </IconButton>
-          )}
-        </DrawerFooter> */}
+              <Iconify icon={"material-symbols:person-rounded"} />
+            </Avatar>
+            <ListItemText
+              primary={`${user?.firstName} ${user?.lastName}`}
+              // secondary={`${user?.role?.name}`}
+              primaryTypographyProps={{
+                variant: "subtitle2",
+                sx: {
+                  width: "165px",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                },
+              }}
+              secondaryTypographyProps={{
+                variant: "caption",
+                sx: {
+                  width: "165px",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                },
+              }}
+            />
+          </Paper>
+        </DrawerFooter>
       </Drawer>
     </>
   );

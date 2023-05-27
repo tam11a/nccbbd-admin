@@ -80,7 +80,7 @@ const Login: React.FC = () => {
                         className="mr-1 text-xl"
                       />
                     }
-                    placeholder={"Phone"}
+                    placeholder={"Email"}
                     size={"large"}
                     onChange={onChange}
                     onBlur={onBlur}
