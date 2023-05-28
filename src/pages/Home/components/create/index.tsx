@@ -8,9 +8,9 @@ import {
   IconButton,
   ListItemText,
 } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { Input } from "antd";
+import { Input, Upload} from "antd";
 import { MdClose } from "react-icons/md";
 import handleResponse from "@/utilities/handleResponse";
 import useUser from "@/hooks/useUser";
@@ -102,7 +102,7 @@ const Create: React.FC<{ open: boolean; onClose: () => void }> = ({
                 <Label isRequired>Title</Label>
                 <Controller
                   control={control}
-                  name={"name"}
+                  name={"title"}
                   rules={{ required: true }}
                   render={({
                     field: { onChange, onBlur, value },
@@ -110,7 +110,7 @@ const Create: React.FC<{ open: boolean; onClose: () => void }> = ({
                   }) => (
                     <Input
                       // className="w-1/2"
-                      placeholder="Product Name"
+                      placeholder="Home Page Title"
                       size="large"
                       onChange={onChange}
                       onBlur={onBlur}
@@ -124,7 +124,7 @@ const Create: React.FC<{ open: boolean; onClose: () => void }> = ({
                 <Label isRequired>Sub-Title</Label>
                 <Controller
                   control={control}
-                  name={"name"}
+                  name={"subtitle"}
                   rules={{ required: true }}
                   render={({
                     field: { onChange, onBlur, value },
@@ -132,7 +132,7 @@ const Create: React.FC<{ open: boolean; onClose: () => void }> = ({
                   }) => (
                     <Input
                       // className="w-1/2"
-                      placeholder="Product Name"
+                      placeholder="Home Page Subtitle"
                       size="large"
                       onChange={onChange}
                       onBlur={onBlur}
@@ -144,7 +144,7 @@ const Create: React.FC<{ open: boolean; onClose: () => void }> = ({
               </div>
             </div>
 
-            <div >
+            <div>
               <div className="flex flex-col">
                 <Label>Description</Label>
                 <Controller
@@ -166,6 +166,8 @@ const Create: React.FC<{ open: boolean; onClose: () => void }> = ({
                   )}
                 />
               </div>
+              <Label>Banner</Label>
+              
             </div>
           </DialogContent>
           <Divider />
@@ -173,10 +175,9 @@ const Create: React.FC<{ open: boolean; onClose: () => void }> = ({
             <Button
               variant={"contained"}
               // disabled={createLoading}
-              disabled
               type={"submit"}
             >
-              Create
+              Update
             </Button>
             <Button variant={"outlined"} onClick={handleClose}>
               Cancel

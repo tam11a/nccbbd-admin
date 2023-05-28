@@ -1,5 +1,6 @@
 import instance from "@/services";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { IUploadFile } from "../gallery/types";
 
 // home
 const getHome = (params: any) =>
@@ -44,11 +45,8 @@ export const useGetHomeBanner = (params: any) => {
   });
 };
 
-const postHomeBanner = (data: {
-  title: string;
-  subtitle: string;
-  description: string;
-}) => instance.post(`v1/home/banner`, data);
+const postHomeBanner = ({ data }: { data: IUploadFile }) =>
+  instance.post(`v1/home/banner`, data);
 
 export const usePostHomeBanner = () => {
   const qc = useQueryClient();
@@ -59,9 +57,21 @@ export const usePostHomeBanner = () => {
   });
 };
 
-const delHomeBanner = (id: any) => instance.delete(`v1/home/banner/${id}`);
+const delHomeBanner = ({
+  id,
+  fileName
+}: {
+  id: number,
+  fileName: string;
+}) =>
+  instance.delete(`v1/home/banner/${id}`, {
+    data: {
+      id,
+      fileName
+    },
+  });
 
-export const useDelHomeBanner = () => {
+export const useDelHomeBanner= () => {
   const queryClient = useQueryClient();
   return useMutation(delHomeBanner, {
     onSuccess: () => {
@@ -69,5 +79,4 @@ export const useDelHomeBanner = () => {
     },
   });
 };
-
 
