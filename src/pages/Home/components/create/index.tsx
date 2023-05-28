@@ -7,6 +7,7 @@ import {
   Divider,
   IconButton,
   ListItemText,
+  Typography,
 } from "@mui/material";
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -18,6 +19,7 @@ import { message } from "@components/antd/message";
 import useAreYouSure from "@/hooks/useAreYouSure";
 import Label from "@components/Label";
 import { usePostHome } from "@/queries/Home";
+import { Icon } from "@iconify/react";
 
 const Create: React.FC<{ open: boolean; onClose: () => void }> = ({
   open,
@@ -110,7 +112,7 @@ const Create: React.FC<{ open: boolean; onClose: () => void }> = ({
                   }) => (
                     <Input
                       // className="w-1/2"
-                      placeholder="Product Name"
+                      placeholder="Home Page Title"
                       size="large"
                       onChange={onChange}
                       onBlur={onBlur}
@@ -132,7 +134,7 @@ const Create: React.FC<{ open: boolean; onClose: () => void }> = ({
                   }) => (
                     <Input
                       // className="w-1/2"
-                      placeholder="Product Name"
+                      placeholder="Home Page Subtitle"
                       size="large"
                       onChange={onChange}
                       onBlur={onBlur}
@@ -144,7 +146,7 @@ const Create: React.FC<{ open: boolean; onClose: () => void }> = ({
               </div>
             </div>
 
-            <div >
+            <div>
               <div className="flex flex-col">
                 <Label>Description</Label>
                 <Controller
@@ -166,6 +168,13 @@ const Create: React.FC<{ open: boolean; onClose: () => void }> = ({
                   )}
                 />
               </div>
+              <Label>Icon</Label>
+              <Button
+                variant="contained"
+                startIcon={<Icon icon="ic:round-file-upload" />}
+              >
+                Click to Upload
+              </Button>
             </div>
           </DialogContent>
           <Divider />

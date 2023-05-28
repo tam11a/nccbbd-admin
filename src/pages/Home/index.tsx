@@ -1,15 +1,12 @@
-// import { useGetProducts } from "@/queries/products";
-// import BackButton from "@components/BackButton";
 import { Button, Container, Grid, Typography } from "@mui/material";
 import { usePaginate, useToggle } from "@tam11a/react-use-hooks";
 import React from "react";
-import Column from "./components/columns";
 import Create from "./components/create";
-import DataTable from "@components/Datatable";
 import { useGetHome } from "@/queries/Home";
 
+
 const Home: React.FC = () => {
-  const { limit, setLimit, page, setPage, getQueryParams } = usePaginate();
+  const { getQueryParams } = usePaginate();
 
   const { data, isLoading } = useGetHome(getQueryParams());
   console.log(data);
@@ -42,22 +39,15 @@ const Home: React.FC = () => {
               Create Details
             </Button>
           </Grid>
-          <Grid item>
-            <DataTable
-              columns={[]}
-              // columns={Column()}
-              rows={data?.data?.data || []}
-              isLoading={isLoading}
-              getRowId={(r: any) => r?._id}
-              //   ss pagination
-              rowCount={0}
-              paginationMode={"server"}
-              page={page}
-              onPageChange={setPage}
-              pageSize={limit}
-              onPageSizeChange={setLimit}
-            />
-          </Grid>
+          <Typography variant="subtitle1" fontWeight={700}>
+            {data?.data.title}
+          </Typography>
+          <Typography variant="subtitle1" fontWeight={700}>
+            {data?.data.subtitle}
+          </Typography>
+          <Typography variant="subtitle1" fontWeight={700}>
+            {data?.data.description}
+          </Typography>
         </Grid>
         <Create open={open} onClose={onClose} />
       </Container>
