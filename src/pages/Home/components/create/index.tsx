@@ -7,11 +7,10 @@ import {
   Divider,
   IconButton,
   ListItemText,
-  Typography,
 } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { Input } from "antd";
+import { Input, Upload} from "antd";
 import { MdClose } from "react-icons/md";
 import handleResponse from "@/utilities/handleResponse";
 import useUser from "@/hooks/useUser";
@@ -19,7 +18,6 @@ import { message } from "@components/antd/message";
 import useAreYouSure from "@/hooks/useAreYouSure";
 import Label from "@components/Label";
 import { usePostHome } from "@/queries/Home";
-import { Icon } from "@iconify/react";
 
 const Create: React.FC<{ open: boolean; onClose: () => void }> = ({
   open,
@@ -104,7 +102,7 @@ const Create: React.FC<{ open: boolean; onClose: () => void }> = ({
                 <Label isRequired>Title</Label>
                 <Controller
                   control={control}
-                  name={"name"}
+                  name={"title"}
                   rules={{ required: true }}
                   render={({
                     field: { onChange, onBlur, value },
@@ -126,7 +124,7 @@ const Create: React.FC<{ open: boolean; onClose: () => void }> = ({
                 <Label isRequired>Sub-Title</Label>
                 <Controller
                   control={control}
-                  name={"name"}
+                  name={"subtitle"}
                   rules={{ required: true }}
                   render={({
                     field: { onChange, onBlur, value },
@@ -168,13 +166,8 @@ const Create: React.FC<{ open: boolean; onClose: () => void }> = ({
                   )}
                 />
               </div>
-              <Label>Icon</Label>
-              <Button
-                variant="contained"
-                startIcon={<Icon icon="ic:round-file-upload" />}
-              >
-                Click to Upload
-              </Button>
+              <Label>Banner</Label>
+              
             </div>
           </DialogContent>
           <Divider />
@@ -182,10 +175,9 @@ const Create: React.FC<{ open: boolean; onClose: () => void }> = ({
             <Button
               variant={"contained"}
               // disabled={createLoading}
-              disabled
               type={"submit"}
             >
-              Create
+              Update
             </Button>
             <Button variant={"outlined"} onClick={handleClose}>
               Cancel
