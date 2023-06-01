@@ -55,7 +55,17 @@ const AppDrawer: React.FC<{ open: boolean; toggleDrawer: () => void }> = ({
                 columnGap: 1,
               }}
             >
-              <Typography className="text-xl font-bold">NCCBD</Typography>
+              {/* <Typography className="text-xl font-bold">NCCBD</Typography> */}
+              <Avatar
+                variant={"square"}
+                src={"/logo-black.png"}
+                sx={{
+                  position: "relative",
+                  width: "70px",
+                  height: "20%",
+                  p: 0.8,
+                }}
+              />
 
               <IconButton onClick={toggleDrawer}>
                 {open ? <RiMenuFoldLine /> : <RiMenuUnfoldLine />}

@@ -8,4 +8,5 @@ export const PRIVATE_ROUTES = {
   NOTFOUND: "*",
   MODS: "mods/*",
   HOME: "home/*",
+  GALLERY: "gallery/*",
 };
