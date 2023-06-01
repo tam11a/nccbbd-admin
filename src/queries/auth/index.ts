@@ -48,10 +48,8 @@ export const useGetValidation = (token: string | null) => {
 
 // User information update
 const updateUserInfo = ({
-  userId,
   data,
 }: {
-  userId: IUserId;
   data: IUpdateUser | any;
 }) => {
   return instance.patch(`/v1/admin/update-profile`, {

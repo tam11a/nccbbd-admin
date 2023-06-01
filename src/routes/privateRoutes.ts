@@ -19,6 +19,10 @@ export const privateRoutes = [
     Component: lazy(() => import("@pages/Gallery")),
   },
   {
+    path: PRIVATE_ROUTES.SETTINGS,
+    Component: lazy(() => import("@pages/Settings")),
+  },
+  {
     path: PRIVATE_ROUTES.NOTFOUND,
     Component: lazy(() => import("@pages/NotFound")),
   },
