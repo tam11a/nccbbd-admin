@@ -4,23 +4,98 @@ import {
   DialogContent,
   Grid,
   Input,
+  Skeleton,
   Typography,
 } from "@mui/material";
 import { usePaginate, useToggle } from "@tam11a/react-use-hooks";
 import React from "react";
 import Create from "./components/create";
-import { useGetHome, useGetHomeBanner } from "@/queries/Home";
+import {
+  useDelHomeBanner,
+  useGetHome,
+  useGetHomeBanner,
+  usePostHomeBanner,
+} from "@/queries/Home";
 import Label from "@components/Label";
+import Upload, { IFile } from "@components/Upload";
+import { message } from "@components/antd/message";
+import handleResponse from "@/utilities/handleResponse";
+import { previewGalleryImage } from "@/queries/gallery";
 
 const Home: React.FC = () => {
   const { getQueryParams } = usePaginate();
 
   const { data } = useGetHome(getQueryParams());
   console.log(data);
-  const { data: homeBanner } = useGetHomeBanner(getQueryParams());
-  console.log(homeBanner);
 
   const { state: open, toggleState: onClose } = useToggle(false);
+
+  // get gallery data
+  const { data: galleryData, isLoading: galleryLoading } = useGetHomeBanner(
+    getQueryParams()
+  );
+  // console.log(galleryData);
+
+  const { mutateAsync: galleryPost } = usePostHomeBanner();
+  const { mutateAsync: deleteGallery } = useDelHomeBanner();
+  const [gallery, setGallery] = React.useState<IFile[]>([]);
+
+  // onUpload
+  const onUpload = async (data: any) => {
+    message.open({
+      type: "loading",
+      content: "Uploading image..",
+      duration: 0,
+    });
+    const res = await handleResponse(
+      () =>
+        galleryPost({
+          data: {
+            File: data,
+          },
+        }),
+      [201]
+    );
+    message.destroy();
+    if (res.status) {
+      message.success("Banner created successfully!");
+    } else {
+      message.error(res.message);
+    }
+  };
+
+  React.useEffect(() => {
+    if (!galleryData) return;
+    setGallery(
+      Array.from(galleryData?.data, (data: any) => ({
+        id: data.id,
+        preview: previewGalleryImage(data.filename),
+        data: data,
+      }))
+    );
+  }, [galleryData]);
+
+  //onDelete
+  const onDelete = async (id: number) => {
+    message.open({
+      type: "loading",
+      content: "Deleting Photo..",
+      duration: 0,
+    });
+    const res = await handleResponse(() =>
+      deleteGallery({
+        id,
+      })
+    );
+    message.destroy();
+    if (res.status) {
+      message.success("Photo deleted successfully!");
+      return true;
+    } else {
+      message.error(res.message);
+      return false;
+    }
+  };
 
   return (
     <>
@@ -78,14 +153,41 @@ const Home: React.FC = () => {
                   />
                 </div>
               </div>
+
               <div>
                 <Label>Banner</Label>
                 <div className=" overflow-hidden rounded-md shadow-sm">
-                  <img
-                    src={homeBanner?.data.filename}
-                    alt=""
-                    className="h-1/2 w-1/2 aspect-video"
-                  />
+                  <div className="flex flex-row flex-wrap items-center justify-start gap-2">
+                    <Container maxWidth={"md"} className="py-4">
+                      {galleryLoading ? (
+                        <div className="flex flex-row flex-wrap items-center justify-start gap-2">
+                          {Array.from(Array(4).keys())?.map((l) => (
+                            <Skeleton
+                              variant="rectangular"
+                              className="relative h-28 w-28"
+                              key={l}
+                            />
+                          ))}
+                        </div>
+                      ) : (
+                        <>
+                          <Upload
+                            multiple
+                            showPreview
+                            showDeleteWarning
+                            defaultValue={gallery}
+                            onDelete={async (file) =>
+                              await onDelete(file.data.id)
+                            }
+                            onChange={async (files) => {
+                              files.map(async (file) => await onUpload(file));
+                              return false;
+                            }}
+                          />
+                        </>
+                      )}
+                    </Container>
+                  </div>
                 </div>
               </div>
               <Button

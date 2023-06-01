@@ -46,7 +46,7 @@ export const useGetHomeBanner = (params: any) => {
 };
 
 const postHomeBanner = ({ data }: { data: IUploadFile }) =>
-  instance.post(`v1/home/banner`, data);
+  instance.postForm(`v1/home/banner`, data);
 
 export const usePostHomeBanner = () => {
   const qc = useQueryClient();
@@ -57,21 +57,12 @@ export const usePostHomeBanner = () => {
   });
 };
 
-const delHomeBanner = ({
-  id,
-  fileName
-}: {
-  id: number,
-  fileName: string;
-}) =>
+const delHomeBanner = ({ id }: { id: number }) =>
   instance.delete(`v1/home/banner/${id}`, {
-    data: {
-      id,
-      fileName
-    },
+    data: { id },
   });
 
-export const useDelHomeBanner= () => {
+export const useDelHomeBanner = () => {
   const queryClient = useQueryClient();
   return useMutation(delHomeBanner, {
     onSuccess: () => {
@@ -79,4 +70,3 @@ export const useDelHomeBanner= () => {
     },
   });
 };
-

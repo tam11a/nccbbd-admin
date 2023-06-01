@@ -15,11 +15,8 @@ export const useGetGallery = (params: any) => {
   });
 };
 
-const postGallery = ( {
-	data,
-}: {
-	data: IUploadFile;
-}) => instance.post(`v1/gallery`, data);
+const postGallery = ({ data }: { data: IUploadFile }) =>
+  instance.postForm(`v1/gallery`, data);
 
 export const usePostGallery = () => {
   const qc = useQueryClient();
@@ -30,21 +27,8 @@ export const usePostGallery = () => {
   });
 };
 
-const delGallery = ({
-  id,
-  fileName,
-  userName,
-}: {
-  id: number;
-  fileName: string;
-  userName: string;
-}) =>
-  instance.delete(`v1/gallery/${id}`, {
-    data: {
-      fileName,
-      userName,
-    },
-  });
+const delGallery = ({ id }: { id: number }) =>
+  instance.delete(`v1/gallery/${id}`);
 
 export const useDelGallery = () => {
   const queryClient = useQueryClient();
@@ -54,3 +38,6 @@ export const useDelGallery = () => {
     },
   });
 };
+
+export const previewGalleryImage = (fileName: string) =>
+  instance.getUri() + `/attachment/${fileName}`;

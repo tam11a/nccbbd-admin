@@ -8,16 +8,16 @@ import {
   IconButton,
   ListItemText,
 } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 import { Controller, useForm } from "react-hook-form";
-import { Input, Upload} from "antd";
+import { Input } from "antd";
 import { MdClose } from "react-icons/md";
 import handleResponse from "@/utilities/handleResponse";
 import useUser from "@/hooks/useUser";
 import { message } from "@components/antd/message";
 import useAreYouSure from "@/hooks/useAreYouSure";
 import Label from "@components/Label";
-import { usePostHome } from "@/queries/Home";
+import { usePostHome} from "@/queries/Home";
 
 const Create: React.FC<{ open: boolean; onClose: () => void }> = ({
   open,
@@ -27,6 +27,7 @@ const Create: React.FC<{ open: boolean; onClose: () => void }> = ({
 
   const { handleSubmit, control } = useForm({});
   const { mutateAsync: createHome } = usePostHome();
+
 
   const onSubmit = async (data: any) => {
     message.open({
@@ -166,8 +167,7 @@ const Create: React.FC<{ open: boolean; onClose: () => void }> = ({
                   )}
                 />
               </div>
-              <Label>Banner</Label>
-              
+             
             </div>
           </DialogContent>
           <Divider />
