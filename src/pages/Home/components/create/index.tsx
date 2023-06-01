@@ -16,8 +16,8 @@ import handleResponse from "@/utilities/handleResponse";
 import useUser from "@/hooks/useUser";
 import { message } from "@components/antd/message";
 import useAreYouSure from "@/hooks/useAreYouSure";
-import Label from "@components/Label";
 import { usePostHome} from "@/queries/Home";
+import Label from "@components/Label";
 
 const Create: React.FC<{ open: boolean; onClose: () => void }> = ({
   open,

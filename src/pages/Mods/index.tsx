@@ -1,190 +1,130 @@
-import { usePostRegister } from "@/queries/mods";
-import handleResponse from "@/utilities/handleResponse";
-import Label from "@components/Label";
-import ErrorSuffix from "@components/antd/ErrorSuffix";
-import { message } from "@components/antd/message";
-import { Box, Button, Typography } from "@mui/material";
-import { Input } from "antd";
 import React from "react";
-import { useForm, Controller, FieldValues } from "react-hook-form";
+import Box from "@mui/material/Box";
+import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
+import {
+  Button,
+  Chip,
+  Container,
+  Grid,
+  IconButton,
+  Typography,
+} from "@mui/material";
+import { usePaginate, useToggle } from "@tam11a/react-use-hooks";
+import Create from "./components";
+import { useGetAdmin } from "@/queries/mods";
+import { FiEdit2 } from "react-icons/fi";
+
+const columns: GridColDef[] = [
+  { field: "id", headerName: "ID", width: 90 },
+  {
+    field: "fullName",
+    headerAlign: "center",
+    headerName: "Full name",
+    description: "This column has a value getter and is not sortable.",
+    sortable: false,
+    flex: 1,
+    align: "center",
+    editable: false,
+    valueGetter: (data: GridValueGetterParams) =>
+      `${data?.row?.firstName || ""} ${data?.row?.lastName || ""}`,
+  },
+  {
+    field: "email",
+    headerAlign: "center",
+    headerName: "Email",
+    align: "center",
+    flex: 1,
+    renderCell: (data: any) =>
+      data?.row?.email ? <Chip label={data?.row?.email} /> : "-",
+    editable: false,
+    sortable: false,
+  },
+  {
+    field: "username",
+    headerAlign: "center",
+    headerName: "Username",
+    align: "center",
+    flex: 1,
+    renderCell: (data: any) =>
+      data?.row?.username ? <Chip label={data?.row?.username} /> : "-",
+    editable: false,
+    sortable: false,
+  },
+  {
+    headerName: "Action",
+    field: "action",
+    width: 80,
+    minWidth: 60,
+    flex: 1,
+    headerAlign: "center",
+    align: "center",
+    renderCell: (data: any) => (
+      <>
+        <IconButton
+          sx={{ fontSize: "large" }}
+          color="primary"
+          // onClick={() => navigate(`/app/admin/${data.row?.id}`)}
+        >
+          <FiEdit2 />
+        </IconButton>
+      </>
+    ),
+  },
+];
 
 const Mods: React.FC = () => {
-  const { control, handleSubmit, reset } = useForm();
-  const { mutateAsync: adminRegister } = usePostRegister();
-
-  const onSubmit = async (data: FieldValues) => {
-    message.open({
-      type: "loading",
-      content: `Updating information..`,
-      duration: 0,
-    });
-    const res = await handleResponse(
-      () =>
-        adminRegister({
-          firstName: data.firstName,
-          lastName: data.lastName,
-          email: data.email,
-          username: data.userName,
-          password: data.password,
-        }),
-      [201]
-    );
-    message.destroy();
-    if (res.status) {
-      reset();
-      message.success(res.message);
-    } else message.error(res.message);
-  };
+  const { limit, setLimit, page, setPage, getQueryParams } =
+    usePaginate();
+  const { data, isLoading } = useGetAdmin(getQueryParams());
+  const { state, toggleState } = useToggle(false);
 
   return (
-    <>
-      <Box
+    <Box sx={{ height: 400, width: "100%" }} className="gap-4">
+      <Container
+        maxWidth={"lg"}
         sx={{
-          mt: 10,
+          maxWidth: "1500px !important",
         }}
       >
-        <Typography
-          className="font-bold text-2xl mb-3 flex items-center justify-center"
-          sx={{ color: "#2b210b" }}
-        >
-          Moderator
-        </Typography>
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="max-w-md mx-auto mt-4"
-        >
-          <Label isRequired>Email</Label>
-          <Controller
-            control={control}
-            name={"email"}
-            rules={{
-              required: true,
-            }}
-            render={({
-              field: { onChange, onBlur, value },
-              fieldState: { error },
-            }) => (
-              <Input
-                placeholder="Email"
-                size="large"
-                onChange={onChange}
-                onBlur={onBlur}
-                value={value}
-                status={error ? "error" : ""}
-                suffix={<ErrorSuffix error={error} />}
-              />
-            )}
-          />
-          <Input.Group compact>
-            <Label isRequired>Full Name</Label>
-            <Controller
-              control={control}
-              name={"firstName"}
-              rules={{
-                required: true,
-              }}
-              render={({
-                field: { onChange, onBlur, value },
-                fieldState: { error },
-              }) => (
-                <Input
-                  className="w-1/2"
-                  placeholder="First Name"
-                  size="large"
-                  onChange={onChange}
-                  onBlur={onBlur}
-                  value={value}
-                  status={error ? "error" : ""}
-                  suffix={<ErrorSuffix error={error} />}
-                />
-              )}
-            />
-            <Controller
-              control={control}
-              name={"lastName"}
-              rules={{
-                required: true,
-              }}
-              render={({
-                field: { onChange, onBlur, value },
-                fieldState: { error },
-              }) => (
-                <Input
-                  className="w-1/2"
-                  placeholder="Last Name"
-                  size="large"
-                  onChange={onChange}
-                  onBlur={onBlur}
-                  value={value}
-                  status={error ? "error" : ""}
-                  suffix={<ErrorSuffix error={error} />}
-                />
-              )}
-            />
-          </Input.Group>
-          <div>
-            <Label isRequired>Username</Label>
-            <Controller
-              control={control}
-              name={"userName"}
-              rules={{
-                required: true,
-              }}
-              render={({
-                field: { onChange, onBlur, value },
-                fieldState: { error },
-              }) => (
-                <Input
-                  placeholder="username"
-                  size="large"
-                  onChange={onChange}
-                  onBlur={onBlur}
-                  value={value}
-                  status={error ? "error" : ""}
-                  suffix={<ErrorSuffix error={error} />}
-                />
-              )}
-            />
-          </div>
-          <Controller
-            control={control}
-            name={"password"}
-            rules={{ required: true }}
-            render={({
-              field: { onChange, onBlur, value },
-              fieldState: { error },
-            }) => (
-              <>
-                <Typography
-                  variant="overline"
-                  className="flex flex-row items-center gap-1"
-                >
-                  Password <ErrorSuffix error={error} size="small" />
-                </Typography>
-                <Input.Password
-                  placeholder={"Password"}
-                  size="large"
-                  onChange={onChange}
-                  onBlur={onBlur}
-                  value={value}
-                  status={error ? "error" : ""}
-                />
-              </>
-            )}
-          />
-
-          <Button
-            variant="contained"
-            size="large"
-            fullWidth
-            className="my-4"
-            type="submit"
+        <Grid container rowGap={2} direction="column" marginTop={4}>
+          <Grid
+            container
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
           >
-            Create Admin
-          </Button>
-        </form>
-      </Box>
-    </>
+            <div>
+              {/* <BackButton /> */}
+              <Typography variant="subtitle1" fontWeight={700}>
+                Moderators
+              </Typography>
+            </div>
+            <Button
+              className="w-1/6 my-2"
+              variant="contained"
+              onClick={() => toggleState()}
+            >
+              Add New Admin
+            </Button>
+          </Grid>
+
+          <Create open={state} onClose={toggleState} />
+        </Grid>
+      </Container>
+      <DataGrid
+        loading={isLoading}
+        rows={data?.data || []}
+        columns={columns}
+        disableSelectionOnClick
+        rowCount={data?.total || 0}
+        page={page}
+        paginationMode={"server"}
+        onPageChange={setPage}
+        pageSize={limit}
+        onPageSizeChange={setLimit}
+        // disableRowSelectionOnClick
+      />
+    </Box>
   );
 };
 

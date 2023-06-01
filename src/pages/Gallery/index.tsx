@@ -10,13 +10,10 @@ const Gallery: React.FC = () => {
   const { getQueryParams } = usePaginate();
 
   // get gallery data
-  const { data: galleryData, isLoading: galleryLoading } = useGetGallery(
-    getQueryParams()
-  );
-  // console.log(galleryData);
-
+  const { data: galleryData, isLoading: galleryLoading } = useGetGallery(getQueryParams());
   const { mutateAsync: galleryPost } = usePostGallery();
   const { mutateAsync: deleteGallery } = useDelGallery();
+
   const [gallery, setGallery] = React.useState<IFile[]>([]);
 
   // onUpload 
@@ -75,8 +72,6 @@ const Gallery: React.FC = () => {
       return false;
     }
   };
-
- 
 
   return (
     <Container
