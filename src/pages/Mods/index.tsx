@@ -13,69 +13,52 @@ import { usePaginate, useToggle } from "@tam11a/react-use-hooks";
 import Create from "./components";
 import { useGetAdmin } from "@/queries/mods";
 import { FiEdit2 } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 
-const columns: GridColDef[] = [
-  { field: "id", headerName: "ID", width: 90 },
-  {
-    field: "fullName",
-    headerAlign: "center",
-    headerName: "Full name",
-    description: "This column has a value getter and is not sortable.",
-    sortable: false,
-    flex: 1,
-    align: "center",
-    editable: false,
-    valueGetter: (data: GridValueGetterParams) =>
-      `${data?.row?.firstName || ""} ${data?.row?.lastName || ""}`,
-  },
-  {
-    field: "email",
-    headerAlign: "center",
-    headerName: "Email",
-    align: "center",
-    flex: 1,
-    renderCell: (data: any) =>
-      data?.row?.email ? <Chip label={data?.row?.email} /> : "-",
-    editable: false,
-    sortable: false,
-  },
-  {
-    field: "username",
-    headerAlign: "center",
-    headerName: "Username",
-    align: "center",
-    flex: 1,
-    renderCell: (data: any) =>
-      data?.row?.username ? <Chip label={data?.row?.username} /> : "-",
-    editable: false,
-    sortable: false,
-  },
-  {
-    headerName: "Action",
-    field: "action",
-    width: 80,
-    minWidth: 60,
-    flex: 1,
-    headerAlign: "center",
-    align: "center",
-    renderCell: (data: any) => (
-      <>
-        <IconButton
-          sx={{ fontSize: "large" }}
-          color="primary"
-          // onClick={() => navigate(`/app/admin/${data.row?.id}`)}
-        >
-          <FiEdit2 />
-        </IconButton>
-      </>
-    ),
-  },
-];
 
 const Mods: React.FC = () => {
-  const { limit, setLimit, page, setPage, getQueryParams } =
-    usePaginate();
+  const navigate = useNavigate();
+  const { limit, setLimit, page, setPage, getQueryParams } = usePaginate();
   const { data, isLoading } = useGetAdmin(getQueryParams());
+
+  const columns: GridColDef[] = [
+    { field: "id", headerName: "ID", width: 90 },
+    {
+      field: "fullName",
+      headerAlign: "center",
+      headerName: "Full name",
+      description: "This column has a value getter and is not sortable.",
+      sortable: false,
+      flex: 1,
+      align: "center",
+      editable: false,
+      valueGetter: (data: GridValueGetterParams) =>
+        `${data?.row?.firstName || ""} ${data?.row?.lastName || ""}`,
+    },
+    {
+      field: "email",
+      headerAlign: "center",
+      headerName: "Email",
+      align: "center",
+      flex: 1,
+      renderCell: (data: any) =>
+        data?.row?.email ? <Chip label={data?.row?.email} /> : "-",
+      editable: false,
+      sortable: false,
+    },
+    {
+      field: "username",
+      headerAlign: "center",
+      headerName: "Username",
+      align: "center",
+      flex: 1,
+      renderCell: (data: any) =>
+        data?.row?.username ? <Chip label={data?.row?.username} /> : "-",
+      editable: false,
+      sortable: false,
+    },
+  ];
+
   const { state, toggleState } = useToggle(false);
 
   return (

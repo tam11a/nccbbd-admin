@@ -9,4 +9,5 @@ export const PRIVATE_ROUTES = {
   MODS: "mods/*",
   HOME: "home/*",
   GALLERY: "gallery/*",
+  SETTINGS: "settings/*"
 };
