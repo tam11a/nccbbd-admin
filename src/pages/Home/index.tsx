@@ -25,19 +25,13 @@ import { previewGalleryImage } from "@/queries/gallery";
 const Home: React.FC = () => {
   const { getQueryParams } = usePaginate();
 
-  const { data } = useGetHome(getQueryParams());
-  console.log(data);
-
   const { state: open, toggleState: onClose } = useToggle(false);
-
+  const { data } = useGetHome(getQueryParams());
   // get gallery data
-  const { data: galleryData, isLoading: galleryLoading } = useGetHomeBanner(
-    getQueryParams()
-  );
-  // console.log(galleryData);
-
+  const { data: galleryData, isLoading: galleryLoading } = useGetHomeBanner(getQueryParams());
   const { mutateAsync: galleryPost } = usePostHomeBanner();
   const { mutateAsync: deleteGallery } = useDelHomeBanner();
+
   const [gallery, setGallery] = React.useState<IFile[]>([]);
 
   // onUpload
